@@ -1,0 +1,62 @@
+---
+title: "STAT 585X Lab 1"
+author: Amy Crawford, Katie Will, and Katherine Goode
+output: pdf_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Building a Book
+
+
+
+# US Weather Stations
+
+```{r, message = FALSE}
+setwd("~/Desktop/STAT 585X/Labs/Lab 1/ushcn.v2.5.5.20170119")
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+tmax <- function(stationid){
+                      file <- paste("USH00", stationid,".raw.tmax", sep = "")
+                      temps <- read_fwf(file, col_positions = fwf_positions(
+                                start=c( 1,13, rep(16+9*0:11, each=4) + c(1,7,8,9)), 
+                                end  =c(11,16, rep(16+9*0:11, each=4) + c(6,7,8,9))))
+                      names(temps) <- c("Station", "Year", 
+                                        paste0(rep(c("Value","DMflag", "QCflag",
+                                                     "DSflag"), 12), 
+                                               rep(1:12, each=4)))
+                      temps$Value1 <- replace(temps$Value1, temps$Value1 == -9999, NA)
+                      temps$Value2 <- replace(temps$Value2, temps$Value2 == -9999, NA)
+                      temps$Value3 <- replace(temps$Value3, temps$Value3 == -9999, NA)
+                      temps$Value4 <- replace(temps$Value4, temps$Value4 == -9999, NA)
+                      temps$Value5 <- replace(temps$Value5, temps$Value5 == -9999, NA)
+                      temps$Value6 <- replace(temps$Value6, temps$Value6 == -9999, NA)
+                      temps$Value7 <- replace(temps$Value7, temps$Value7 == -9999, NA)
+                      temps$Value8 <- replace(temps$Value8, temps$Value8 == -9999, NA)
+                      temps$Value9 <- replace(temps$Value9, temps$Value9 == -9999, NA)
+                      temps$Value10 <- replace(temps$Value10, temps$Value10 == -9999, NA)
+                      temps$Value11 <- replace(temps$Value11, temps$Value11 == -9999, NA)
+                      temps$Value12 <- replace(temps$Value12, temps$Value12 == -9999, NA)
+  return(temps)
+}
+```
+
+```{r, message = FALSE}
+data <- tmax(132999)
+new.data <- gather(data, key = "Month", value = "Temp_Max", starts_with("Value"))
+new.data$Month <- as.numeric(gsub("Value", "", new.data$Month))
+```
+
+```{r, fig.width = 13, fig.height = 6, message = FALSE}
+ggplot(new.data, aes(x = Year, Temp_Max/100)) + 
+  geom_point() +
+  facet_wrap( ~ Month, nrow = 1) +
+  scale_x_continuous(breaks=seq(1900, 2000, 50)) + 
+  labs(y = "Temperature")
+```
+
