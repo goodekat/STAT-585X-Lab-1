@@ -12,8 +12,13 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 # US Weather Stations
 
+Not sure what the best thing is to do for setting the working directory in this document. This is just the
+directory where I have the data saved on my computer...
 ```{r, message = FALSE}
 setwd("~/Desktop/STAT 585X/Labs/Lab 1/ushcn.v2.5.5.20170119")
+```
+
+```{r, message = FALSE}
 library(tidyverse)
 library(ggplot2)
 ```
