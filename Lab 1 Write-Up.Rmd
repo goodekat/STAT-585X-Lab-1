@@ -64,4 +64,4 @@ ggplot(new.data, aes(x = Year, Temp_Max/100)) +
   labs(y = "Maximum Temperature")
 ```
 
-Above is a plot of the maximum temperatures each month at station 132999 between the years of 1899 and 2016. It is easy to see the increasing then decreasing trend in temperatures across the months, with the temperatures peaking in July/August. The variation in maximum temperatures seems to be the greates in the colder months. When we examine each month separatly, we don't see a clear increasing (or decreasing) trend across the years. 
+Above is a plot of the maximum temperatures each month at station 132999 between the years of 1899 and 2016. It is easy to see the increasing then decreasing trend in temperatures across the months, with the temperatures peaking in July/August. The variation in maximum temperatures seems to be the greatest in the colder months. When we examine each month separatly, we don't see a clear increasing (or decreasing) trend across the years. 
