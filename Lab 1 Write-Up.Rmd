@@ -10,6 +10,9 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 
 # Building a Book
 
+Unfortunately, our group was not able to build the book completely. While trying to build the tex file, the error we encountered was "input Inconsolata' failed to make Inconsolata.tfm". This error occured while running the system() function. We understand that this is a font used in the book. We tried downloading the inconsolata font onto our Mac machines, but the file type that came through was a .otf file intead of the desired .tfm file. How do we download a .tfm font file onto our Mac machines to be used to build a tex file?
+
+
 # US Weather Stations
 
 Not sure what the best thing is to do for setting the working directory in this document. This is just the
