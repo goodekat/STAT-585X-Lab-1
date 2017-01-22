@@ -15,16 +15,19 @@ Unfortunately, our group was not able to build the book completely. While trying
 
 # US Weather Stations
 
-Not sure what the best thing is to do for setting the working directory in this document. This is just the
-directory where I have the data saved on my computer...
+The objective of this part of the lab was to create a function that returns the cleaned temperature data for a specified weather station from the data monthly maximum temperature recordings on the USHCN website.
+
 ```{r, message = FALSE}
 setwd("~/Desktop/STAT 585X/Labs/Lab 1/ushcn.v2.5.5.20170119")
 ```
 
+We used the tidyverse and ggplot2 packages from R to complete this task.
 ```{r, message = FALSE}
 library(tidyverse)
 library(ggplot2)
 ```
+
+The function that we wrote is called `tmax`. When a station ID number is input into `tmax`, it outputs the temperature data for that station. The temperature data is in a fixed width format, so `tmax` makes use of the `read_fwf` function to read in the data. The function also attaches names to the variables, and it changes the temperature values of -9999, which represent missing values, to NA.
 
 ```{r}
 tmax <- function(stationid){
@@ -52,12 +55,16 @@ tmax <- function(stationid){
 }
 ```
 
+We then created a plot that visualized the temperature records over time for a specific station. The following code uses `tmax` to read in the data from station 132999 and transforms the data into the necessary structure to be able to use ggplot2 to obtain the desired plot.
+
 ```{r, message = FALSE}
 data <- tmax(132999)
 new.data <- gather(data, key = "Month", value = "Temp_Max", starts_with("Value"))
 new.data$Month <- as.numeric(gsub("Value", "", new.data$Month))
 max(new.data$Year); min(new.data$Year)
 ```
+
+The following is the code for creating the plot.
 
 ```{r, fig.width = 13, fig.height = 6, message = FALSE}
 ggplot(new.data, aes(x = Year, Temp_Max/100)) + 
@@ -67,4 +74,4 @@ ggplot(new.data, aes(x = Year, Temp_Max/100)) +
   labs(y = "Maximum Temperature")
 ```
 
-Above is a plot of the maximum temperatures each month at station 132999 between the years of 1899 and 2016. It is easy to see the increasing then decreasing trend in temperatures across the months, with the temperatures peaking in July/August. The variation in maximum temperatures seems to be the greatest in the colder months. When we examine each month separatly, we don't see a clear increasing (or decreasing) trend across the years. 
+Above is the plot of the maximum temperatures each month at station 132999 between the years of 1899 and 2016. It is easy to see the increasing then decreasing trend in temperatures across the months, with the temperatures peaking in July/August. The variation in maximum temperatures seems to be the greatest in the colder months. When we examine each month separatly, we don't see a clear increasing (or decreasing) trend across the years. 
