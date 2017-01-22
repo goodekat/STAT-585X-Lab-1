@@ -67,7 +67,7 @@ max(new.data$Year); min(new.data$Year)
 The following is the code for creating the plot.
 
 ```{r, fig.width = 13, fig.height = 6, message = FALSE}
-ggplot(new.data, aes(x = Year, Temp_Max/100)) + 
+  ggplot(new.data, aes(x = Year, Temp_Max/100)) + 
   geom_point() +
   facet_wrap( ~ Month, nrow = 1) +
   scale_x_continuous(breaks=seq(1900, 2000, 50)) + 
