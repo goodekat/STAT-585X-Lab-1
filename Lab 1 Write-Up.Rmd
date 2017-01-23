@@ -17,7 +17,7 @@ Unfortunately, our group was not able to build the book completely. While trying
 
 The objective of this part of the lab was to create a function that returns the cleaned temperature data for a specified weather station from the data monthly maximum temperature recordings on the USHCN website.
 
-```{r, message = FALSE}
+```{r, message = FALSE, include = FALSE}
 setwd("~/Desktop/STAT 585X/Labs/Lab 1/ushcn.v2.5.5.20170119")
 ```
 
@@ -61,7 +61,6 @@ We then created a plot that visualized the temperature records over time for a s
 data <- tmax(132999)
 new.data <- gather(data, key = "Month", value = "Temp_Max", starts_with("Value"))
 new.data$Month <- as.numeric(gsub("Value", "", new.data$Month))
-max(new.data$Year); min(new.data$Year)
 ```
 
 The following is the code for creating the plot.
